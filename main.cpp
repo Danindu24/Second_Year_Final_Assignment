@@ -14,6 +14,8 @@
 
 using namespace std;
 
+typedef vector<CSquare *> squareVector;
+
 string line [26];
 int i = 0;
 
@@ -119,7 +121,7 @@ int main()
         myfile.close();
 
     };
-    vector<CSquare *> squares;
+    squareVector squares;
     for (int i = 0; i < 26; i++)
     {
         if (line[i][0] == '1')
@@ -148,8 +150,11 @@ int main()
 
     }
 
-    Player * playerone = new Player("dog",1500,1);
-    Player * playertwo = new Player("cat", 1500,1);
+    //Player * playerone = new Player("dog",1500,1);
+    //Player * playertwo = new Player("cat", 1500,1);
+
+    unique_ptr<Player> playerone(make_unique<Player>("dog",1500,1));
+    unique_ptr<Player> playertwo(make_unique<Player>("cat", 1500,1));
 
 
     int randomnumber;

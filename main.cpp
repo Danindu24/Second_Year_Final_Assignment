@@ -59,6 +59,36 @@ vector<string> getvalues(string text)
             }
 
         }
+    } else if (strings[0] == "3" || strings[0] == "8") {
+        for (int i = 0; i < 3; i++)
+        {
+            if (i == 1)
+            {
+                temp.push_back(strings[i] +" "+ strings[i + 1]);
+
+                i = 2;
+            }
+            else
+            {
+                temp.push_back(strings[i]);
+            }
+
+        }
+    } else if (strings[0] == "7") {
+        for (int i = 0; i < 4; i++)
+        {
+            if (i == 1)
+            {
+                temp.push_back(strings[i] +" "+ strings[i + 1] + " " + strings[i + 2]);
+
+                i = 3;
+            }
+            else
+            {
+                temp.push_back(strings[i]);
+            }
+
+        }
     }
     else
     {
@@ -145,16 +175,42 @@ int main()
                     cout<<playerone->getPlayerName()<<" lands on "<<squares[playerone->getPlayerPosition()-1]->getSquareName()<<endl;
                     cout<<playerone->getPlayerName()<<" passes GO and collects "<<pound<<"200"<<endl;
 
-                    if (squares[playerone->getPlayerPosition() - 1]->getOwner().empty()) {
-                        squares[playerone->getPlayerPosition() - 1]->setOwner(playerone->getPlayerName());
-                        playerone->setPLayerMoney(playerone->getPLayerMoney() - squares[playerone->getPlayerPosition() - 1]->getCost());
-                        cout<<playerone->getPlayerName()<<" buys "<< squares[playerone->getPlayerPosition() - 1]->getSquareName()<< " for "<<pound<<squares[playerone->getPlayerPosition() - 1]->getCost()<<endl;
-                    } else if (squares[playerone->getPlayerPosition() - 1]->getOwner() == playerone->getPlayerName()) {
-                        cout << playerone->getPlayerName() << " owns " << squares[playerone->getPlayerPosition() - 1]->getSquareName() << endl;
-                    } else if (squares[playerone->getPlayerPosition() - 1]->getOwner() == playertwo->getPlayerName()) {
-                        playerone->setPLayerMoney(playerone->getPLayerMoney() - squares[playerone->getPlayerPosition() - 1]->getRent());
-                        cout<<playerone->getPlayerName()<<" pays rent "<< squares[playerone->getPlayerPosition() - 1]->getSquareName()<< " for "<<pound<<squares[playerone->getPlayerPosition() - 1]->getRent()<<endl;
-                        playertwo->setPLayerMoney(playertwo->getPLayerMoney() + squares[playerone->getPlayerPosition() - 1]->getRent());
+                    if (squares[playerone->getPlayerPosition() - 1]->getSquareType() == 1 || squares[playerone->getPlayerPosition() - 1]->getSquareType() == 3) {
+
+                        if (squares[playerone->getPlayerPosition() - 1]->getOwner().empty()) {
+                            squares[playerone->getPlayerPosition() - 1]->setOwner(playerone->getPlayerName());
+                            playerone->setPLayerMoney(playerone->getPLayerMoney() -
+                                                      squares[playerone->getPlayerPosition() - 1]->getCost());
+                            cout << playerone->getPlayerName() << " buys "
+                                 << squares[playerone->getPlayerPosition() - 1]->getSquareName() << " for " << pound
+                                 << squares[playerone->getPlayerPosition() - 1]->getCost() << endl;
+                        } else if (squares[playerone->getPlayerPosition() - 1]->getOwner() ==
+                                   playerone->getPlayerName()) {
+                            cout << playerone->getPlayerName() << " owns "
+                                 << squares[playerone->getPlayerPosition() - 1]->getSquareName() << endl;
+                        } else if (squares[playerone->getPlayerPosition() - 1]->getOwner() ==
+                                   playertwo->getPlayerName()) {
+                            playerone->setPLayerMoney(playerone->getPLayerMoney() -
+                                                      squares[playerone->getPlayerPosition() - 1]->getRent());
+                            if (squares[playerone->getPlayerPosition() - 1]->getSquareType() == 1) {
+                                cout << playerone->getPlayerName() << " pays rent "
+                                     << squares[playerone->getPlayerPosition() - 1]->getSquareName() << " for " << pound
+                                     << squares[playerone->getPlayerPosition() - 1]->getRent() << endl;
+                            } else if (squares[playerone->getPlayerPosition() - 1]->getSquareType() == 3) {
+                                cout << playerone->getPlayerName() << " pay " << pound
+                                     << squares[playerone->getPlayerPosition() - 1]->getRent() << " for ticket" << endl;
+                            }
+                            playertwo->setPLayerMoney(playertwo->getPLayerMoney() +
+                                                      squares[playerone->getPlayerPosition() - 1]->getRent());
+                        }
+                    } else if (squares[playerone->getPlayerPosition() - 1]->getSquareType() == 6) {
+                        cout << playerone->getPlayerName() << " is just visiting" << endl;
+                    } else if (squares[playerone->getPlayerPosition() - 1]->getSquareType() == 7) {
+                        playerone->setPlayerPosition(7);
+                        cout << playerone->getPlayerName() << " goes to jail" << endl;
+                        cout << playerone->getPlayerName() << " pays " << pound << "50" << endl;
+                    } else if (squares[playerone->getPlayerPosition() - 1]->getSquareType() == 8) {
+                        cout << playerone->getPlayerName() << " is resting" << endl;
                     }
 
 
@@ -169,18 +225,43 @@ int main()
                     cout<<playerone->getPlayerName()<<" rolls "<<randomnumber<<endl;
                     cout<<playerone->getPlayerName()<<" lands on "<<squares[playerone->getPlayerPosition()-1]->getSquareName()<<endl;
 
-                    if (squares[playerone->getPlayerPosition() - 1]->getOwner().empty()) {
-                        squares[playerone->getPlayerPosition() - 1]->setOwner(playerone->getPlayerName());
-                        playerone->setPLayerMoney(playerone->getPLayerMoney() - squares[playerone->getPlayerPosition() - 1]->getCost());
-                        cout<<playerone->getPlayerName()<<" buys "<< squares[playerone->getPlayerPosition() - 1]->getSquareName()<< " for "<<pound<<squares[playerone->getPlayerPosition() - 1]->getCost()<<endl;
-                    } else if (squares[playerone->getPlayerPosition() - 1]->getOwner() == playerone->getPlayerName()) {
-                        cout << playerone->getPlayerName() << " owns " << squares[playerone->getPlayerPosition() - 1]->getSquareName() << endl;
-                    } else if (squares[playerone->getPlayerPosition() - 1]->getOwner() == playertwo->getPlayerName()) {
-                        playerone->setPLayerMoney(playerone->getPLayerMoney() - squares[playerone->getPlayerPosition() - 1]->getRent());
-                        cout<<playerone->getPlayerName()<<" pays rent "<< squares[playerone->getPlayerPosition() - 1]->getSquareName()<< " for "<<pound<<squares[playerone->getPlayerPosition() - 1]->getRent()<<endl;
-                        playertwo->setPLayerMoney(playertwo->getPLayerMoney() + squares[playerone->getPlayerPosition() - 1]->getRent());
-                    }
+                    if (squares[playerone->getPlayerPosition() - 1]->getSquareType() == 1 || squares[playerone->getPlayerPosition() - 1]->getSquareType() == 3) {
 
+                        if (squares[playerone->getPlayerPosition() - 1]->getOwner().empty()) {
+                            squares[playerone->getPlayerPosition() - 1]->setOwner(playerone->getPlayerName());
+                            playerone->setPLayerMoney(playerone->getPLayerMoney() -
+                                                      squares[playerone->getPlayerPosition() - 1]->getCost());
+                            cout << playerone->getPlayerName() << " buys "
+                                 << squares[playerone->getPlayerPosition() - 1]->getSquareName() << " for " << pound
+                                 << squares[playerone->getPlayerPosition() - 1]->getCost() << endl;
+                        } else if (squares[playerone->getPlayerPosition() - 1]->getOwner() ==
+                                   playerone->getPlayerName()) {
+                            cout << playerone->getPlayerName() << " owns "
+                                 << squares[playerone->getPlayerPosition() - 1]->getSquareName() << endl;
+                        } else if (squares[playerone->getPlayerPosition() - 1]->getOwner() ==
+                                   playertwo->getPlayerName()) {
+                            playerone->setPLayerMoney(playerone->getPLayerMoney() -
+                                                      squares[playerone->getPlayerPosition() - 1]->getRent());
+                            if (squares[playerone->getPlayerPosition() - 1]->getSquareType() == 1) {
+                                cout << playerone->getPlayerName() << " pays rent "
+                                     << squares[playerone->getPlayerPosition() - 1]->getSquareName() << " for " << pound
+                                     << squares[playerone->getPlayerPosition() - 1]->getRent() << endl;
+                            } else if (squares[playerone->getPlayerPosition() - 1]->getSquareType() == 3) {
+                                cout << playerone->getPlayerName() << " pay " << pound
+                                     << squares[playerone->getPlayerPosition() - 1]->getRent() << " for ticket" << endl;
+                            }
+                            playertwo->setPLayerMoney(playertwo->getPLayerMoney() +
+                                                      squares[playerone->getPlayerPosition() - 1]->getRent());
+                        }
+                    } else if (squares[playerone->getPlayerPosition() - 1]->getSquareType() == 6) {
+                        cout << playerone->getPlayerName() << " is just visiting" << endl;
+                    } else if (squares[playerone->getPlayerPosition() - 1]->getSquareType() == 7) {
+                        playerone->setPlayerPosition(7);
+                        cout << playerone->getPlayerName() << " goes to jail" << endl;
+                        cout << playerone->getPlayerName() << " pays " << pound << "50" << endl;
+                    } else if (squares[playerone->getPlayerPosition() - 1]->getSquareType() == 8) {
+                        cout << playerone->getPlayerName() << " is resting" << endl;
+                    }
 
                     cout<<playerone->getPlayerName()<<" has "<<pound<<playerone->getPLayerMoney()<<endl;
                     player1 = false;
@@ -199,18 +280,42 @@ int main()
                     cout<<playertwo->getPlayerName()<<" lands on "<<squares[playertwo->getPlayerPosition()-1]->getSquareName()<<endl;
                     cout<<playertwo->getPlayerName()<<" passes GO and collects "<<pound<<"200"<<endl;
 
-                    if (squares[playertwo->getPlayerPosition() - 1]->getOwner().empty()) {
-                        squares[playertwo->getPlayerPosition() - 1]->setOwner(playertwo->getPlayerName());
-                        playertwo->setPLayerMoney(playertwo->getPLayerMoney() - squares[playertwo->getPlayerPosition() - 1]->getCost());
-                        cout<<playertwo->getPlayerName()<<" buys "<< squares[playertwo->getPlayerPosition() - 1]->getSquareName()<< " for "<<pound<<squares[playertwo->getPlayerPosition() - 1]->getCost()<<endl;
-                    } else if (squares[playertwo->getPlayerPosition() - 1]->getOwner() == playertwo->getPlayerName()) {
-                        cout << playertwo->getPlayerName() << " owns " << squares[playertwo->getPlayerPosition() - 1]->getSquareName() << endl;
-                    } else if (squares[playertwo->getPlayerPosition() - 1]->getOwner() == playerone->getPlayerName()) {
-                        playertwo->setPLayerMoney(playertwo->getPLayerMoney() - squares[playertwo->getPlayerPosition() - 1]->getRent());
-                        cout<<playertwo->getPlayerName()<<" pays rent "<< squares[playertwo->getPlayerPosition() - 1]->getSquareName()<< " for "<<pound<<squares[playertwo->getPlayerPosition() - 1]->getRent()<<endl;
-                        playerone->setPLayerMoney(playertwo->getPLayerMoney() + squares[playertwo->getPlayerPosition() - 1]->getRent());
+                    if (squares[playertwo->getPlayerPosition() - 1]->getSquareType() == 1 || squares[playertwo->getPlayerPosition() - 1]->getSquareType() == 3) {
+                        if (squares[playertwo->getPlayerPosition() - 1]->getOwner().empty()) {
+                            squares[playertwo->getPlayerPosition() - 1]->setOwner(playertwo->getPlayerName());
+                            playertwo->setPLayerMoney(playertwo->getPLayerMoney() -
+                                                      squares[playertwo->getPlayerPosition() - 1]->getCost());
+                            cout << playertwo->getPlayerName() << " buys "
+                                 << squares[playertwo->getPlayerPosition() - 1]->getSquareName() << " for " << pound
+                                 << squares[playertwo->getPlayerPosition() - 1]->getCost() << endl;
+                        } else if (squares[playertwo->getPlayerPosition() - 1]->getOwner() ==
+                                   playertwo->getPlayerName()) {
+                            cout << playertwo->getPlayerName() << " owns "
+                                 << squares[playertwo->getPlayerPosition() - 1]->getSquareName() << endl;
+                        } else if (squares[playertwo->getPlayerPosition() - 1]->getOwner() ==
+                                   playerone->getPlayerName()) {
+                            playertwo->setPLayerMoney(playertwo->getPLayerMoney() -
+                                                      squares[playertwo->getPlayerPosition() - 1]->getRent());
+                            if (squares[playertwo->getPlayerPosition() - 1]->getSquareType() == 1) {
+                                cout << playertwo->getPlayerName() << " pays rent "
+                                     << squares[playertwo->getPlayerPosition() - 1]->getSquareName() << " for " << pound
+                                     << squares[playertwo->getPlayerPosition() - 1]->getRent() << endl;
+                            } else if (squares[playertwo->getPlayerPosition() - 1]->getSquareType() == 3) {
+                                cout << playertwo->getPlayerName() << " pay " << pound
+                                     << squares[playertwo->getPlayerPosition() - 1]->getRent() << " for ticket" << endl;
+                            }
+                            playerone->setPLayerMoney(playertwo->getPLayerMoney() +
+                                                      squares[playertwo->getPlayerPosition() - 1]->getRent());
+                        }
+                    } else if (squares[playertwo->getPlayerPosition() - 1]->getSquareType() == 6) {
+                        cout << playertwo->getPlayerName() << " is just visiting" << endl;
+                    } else if (squares[playertwo->getPlayerPosition() - 1]->getSquareType() == 7) {
+                        playertwo->setPlayerPosition(7);
+                        cout << playertwo->getPlayerName() << " goes to jail" << endl;
+                        cout << playertwo->getPlayerName() << " pays " << pound << "50" << endl;
+                    } else if (squares[playertwo->getPlayerPosition() - 1]->getSquareType() == 8) {
+                        cout << playertwo->getPlayerName() << " is resting" << endl;
                     }
-
 
                     cout<<playertwo->getPlayerName()<<" has "<<pound<<playertwo->getPLayerMoney()<<endl;
                     player2 = false;
@@ -223,17 +328,44 @@ int main()
                     cout<<playertwo->getPlayerName()<<" rolls "<<randomnumber<<endl;
                     cout<<playertwo->getPlayerName()<<" lands on "<<squares[playertwo->getPlayerPosition()-1]->getSquareName()<<endl;
 
-                    if (squares[playertwo->getPlayerPosition() - 1]->getOwner().empty()) {
-                        squares[playertwo->getPlayerPosition() - 1]->setOwner(playertwo->getPlayerName());
-                        playertwo->setPLayerMoney(playertwo->getPLayerMoney() - squares[playertwo->getPlayerPosition() - 1]->getCost());
-                        cout<<playertwo->getPlayerName()<<" buys "<< squares[playertwo->getPlayerPosition() - 1]->getSquareName()<< " for "<<pound<<squares[playertwo->getPlayerPosition() - 1]->getCost()<<endl;
-                    } else if (squares[playertwo->getPlayerPosition() - 1]->getOwner() == playertwo->getPlayerName()) {
-                        cout << playertwo->getPlayerName() << " owns " << squares[playertwo->getPlayerPosition() - 1]->getSquareName() << endl;
-                    } else if (squares[playertwo->getPlayerPosition() - 1]->getOwner() == playerone->getPlayerName()) {
-                        playertwo->setPLayerMoney(playertwo->getPLayerMoney() - squares[playertwo->getPlayerPosition() - 1]->getRent());
-                        cout<<playertwo->getPlayerName()<<" pays rent "<< squares[playertwo->getPlayerPosition() - 1]->getSquareName()<< " for "<<pound<<squares[playertwo->getPlayerPosition() - 1]->getRent()<<endl;
-                        playerone->setPLayerMoney(playertwo->getPLayerMoney() + squares[playertwo->getPlayerPosition() - 1]->getRent());
+                    if (squares[playertwo->getPlayerPosition() - 1]->getSquareType() == 1 || squares[playertwo->getPlayerPosition() - 1]->getSquareType() == 3) {
+
+                        if (squares[playertwo->getPlayerPosition() - 1]->getOwner().empty()) {
+                            squares[playertwo->getPlayerPosition() - 1]->setOwner(playertwo->getPlayerName());
+                            playertwo->setPLayerMoney(playertwo->getPLayerMoney() -
+                                                      squares[playertwo->getPlayerPosition() - 1]->getCost());
+                            cout << playertwo->getPlayerName() << " buys "
+                                 << squares[playertwo->getPlayerPosition() - 1]->getSquareName() << " for " << pound
+                                 << squares[playertwo->getPlayerPosition() - 1]->getCost() << endl;
+                        } else if (squares[playertwo->getPlayerPosition() - 1]->getOwner() ==
+                                   playertwo->getPlayerName()) {
+                            cout << playertwo->getPlayerName() << " owns "
+                                 << squares[playertwo->getPlayerPosition() - 1]->getSquareName() << endl;
+                        } else if (squares[playertwo->getPlayerPosition() - 1]->getOwner() ==
+                                   playerone->getPlayerName()) {
+                            playertwo->setPLayerMoney(playertwo->getPLayerMoney() -
+                                                      squares[playertwo->getPlayerPosition() - 1]->getRent());
+                            if (squares[playertwo->getPlayerPosition() - 1]->getSquareType() == 1) {
+                                cout << playertwo->getPlayerName() << " pays rent "
+                                     << squares[playertwo->getPlayerPosition() - 1]->getSquareName() << " for " << pound
+                                     << squares[playertwo->getPlayerPosition() - 1]->getRent() << endl;
+                            } else if (squares[playertwo->getPlayerPosition() - 1]->getSquareType() == 3) {
+                                cout << playertwo->getPlayerName() << " pay " << pound
+                                     << squares[playertwo->getPlayerPosition() - 1]->getRent() << " for ticket" << endl;
+                            }
+                            playerone->setPLayerMoney(playertwo->getPLayerMoney() +
+                                                      squares[playertwo->getPlayerPosition() - 1]->getRent());
+                        }
+                    } else if (squares[playertwo->getPlayerPosition() - 1]->getSquareType() == 6) {
+                        cout << playertwo->getPlayerName() << " is just visiting" << endl;
+                    } else if (squares[playertwo->getPlayerPosition() - 1]->getSquareType() == 7) {
+                        playertwo->setPlayerPosition(7);
+                        cout << playertwo->getPlayerName() << " goes to jail" << endl;
+                        cout << playertwo->getPlayerName() << " pays " << pound << "50" << endl;
+                    } else if (squares[playertwo->getPlayerPosition() - 1]->getSquareType() == 8) {
+                        cout << playertwo->getPlayerName() << " is resting" << endl;
                     }
+
 
                     cout<<playertwo->getPlayerName()<<" has "<<pound<<playertwo->getPLayerMoney()<<endl;
                     player2 = false;
@@ -253,7 +385,7 @@ int main()
     } else {
         cout << "\n" << "ERROR!!!" << endl;
     }
-    //cout << squares.size() << endl;
+//    cout << squares.size() << endl;
 //    for (int j = 0; j < squares.size(); ++j) {
 //        if (squares[j]->getSquareType() == 1) {
 //        cout << squares[j]->getSquareType() << " - " << squares[j]->getSquareName() << " - " << squares[j]->getCost() << " - " << squares[j]->getRent() << " - " << squares[j]->getColorGroup() << endl;

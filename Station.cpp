@@ -15,3 +15,11 @@ int Station::getRent() const {
 Station::Station(int squareType, const string &squareName) : CSquare(squareType, squareName) {
 
 }
+
+const string &Station::getOwner() const {
+    return owner;
+}
+
+void Station::setOwner(const string &owner) {
+    this->owner = owner;
+}

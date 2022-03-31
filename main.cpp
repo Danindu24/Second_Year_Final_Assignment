@@ -7,6 +7,11 @@
 #include "CSquare.h"
 #include "Properties.h"
 #include "Player.h"
+#include "Station.h"
+#include "Jail.h"
+#include "GoToJail.h"
+#include "FreeParking.h"
+
 using namespace std;
 
 string line [26];
@@ -93,7 +98,20 @@ int main()
             squares.push_back(new Properties(stoi(getvalues(line[i])[0]),getvalues(line[i])[1], stoi(getvalues(line[i])[2]),
                                              stoi(getvalues(line[i])[3]), stoi(getvalues(line[i])[4])));
             //cout << "property done!!" << endl;
-        } else {
+        } else if (line[i][0] == '3') {
+            squares.push_back(new Station(stoi(getvalues(line[i])[0]), getvalues(line[i])[1]));
+
+        } else if (line[i][0] == '6') {
+            squares.push_back(new Jail(stoi(getvalues(line[i])[0]), getvalues(line[i])[1]));
+
+        } else if (line[i][0] == '7') {
+            squares.push_back(new GoToJail(stoi(getvalues(line[i])[0]), getvalues(line[i])[1]));
+
+        }else if (line[i][0] == '8') {
+            squares.push_back(new FreeParking(stoi(getvalues(line[i])[0]), getvalues(line[i])[1]));
+
+        }
+        else {
             squares.push_back(new CSquare(stoi(getvalues(line[i])[0]), getvalues(line[i])[1]));
             //cout << "square done!!" << endl;
         }
@@ -192,8 +210,8 @@ int main()
                         cout<<playertwo->getPlayerName()<<" pays rent "<< squares[playertwo->getPlayerPosition() - 1]->getSquareName()<< " for "<<pound<<squares[playertwo->getPlayerPosition() - 1]->getRent()<<endl;
                         playerone->setPLayerMoney(playertwo->getPLayerMoney() + squares[playertwo->getPlayerPosition() - 1]->getRent());
                     }
-                    
-                    
+
+
                     cout<<playertwo->getPlayerName()<<" has "<<pound<<playertwo->getPLayerMoney()<<endl;
                     player2 = false;
                     player1 = true;
